@@ -3,7 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertProductSchema, insertProductListingSchema, insertReviewSchema, insertCategorySchema } from "@shared/schema";
 import { z } from "zod";
-import { ValidationError } from "zod-validation-error";
+import { fromZodError } from "zod-validation-error";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Get all products
@@ -55,7 +55,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(product);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const validationError = ValidationError.fromZodError(error);
+        const validationError = fromZodError(error);
         return res.status(400).json({ message: validationError.toString() });
       }
       console.error("Error creating product:", error);
@@ -85,7 +85,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(listing);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const validationError = ValidationError.fromZodError(error);
+        const validationError = fromZodError(error);
         return res.status(400).json({ message: validationError.toString() });
       }
       console.error("Error creating product listing:", error);
@@ -115,7 +115,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(review);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const validationError = ValidationError.fromZodError(error);
+        const validationError = fromZodError(error);
         return res.status(400).json({ message: validationError.toString() });
       }
       console.error("Error creating review:", error);
@@ -153,7 +153,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(201).json(category);
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const validationError = ValidationError.fromZodError(error);
+        const validationError = fromZodError(error);
         return res.status(400).json({ message: validationError.toString() });
       }
       console.error("Error creating category:", error);
@@ -190,9 +190,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({
         product,
         listings: validListings,
-        bestDeal: validListings.reduce((best, current) => 
+        bestDeal: validListings.length > 0 ? validListings.reduce((best, current) => 
           !best || parseFloat(current.price) < parseFloat(best.price) ? current : best
-        , null)
+        ) : null
       });
     } catch (error) {
       console.error("Error creating comparison:", error);
