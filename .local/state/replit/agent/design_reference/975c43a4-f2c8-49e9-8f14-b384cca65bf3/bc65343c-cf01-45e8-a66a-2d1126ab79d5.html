@@ -1,0 +1,814 @@
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CompareMart - Premium E-commerce Comparison Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eef2ff',
+                            500: '#6366f1',
+                            600: '#5b5bd6',
+                            700: '#4f46e5',
+                            900: '#312e81'
+                        },
+                        secondary: {
+                            500: '#8b5cf6',
+                            600: '#7c3aed'
+                        },
+                        accent: {
+                            amber: '#f59e0b',
+                            emerald: '#10b981',
+                            cyan: '#06b6d4',
+                            red: '#ef4444'
+                        }
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'system-ui', 'sans-serif']
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'tilt': 'tilt 10s infinite linear',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.6s ease-out'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        glow: {
+                            'from': { boxShadow: '0 0 20px #6366f1' },
+                            'to': { boxShadow: '0 0 30px #8b5cf6' }
+                        },
+                        tilt: {
+                            '0%, 50%, 100%': { transform: 'rotate(0deg)' },
+                            '25%': { transform: 'rotate(1deg)' },
+                            '75%': { transform: 'rotate(-1deg)' }
+                        },
+                        slideUp: {
+                            'from': { opacity: '0', transform: 'translateY(30px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        fadeIn: {
+                            'from': { opacity: '0' },
+                            'to': { opacity: '1' }
+                        }
+                    },
+                    backdropBlur: {
+                        xs: '2px'
+                    }
+                }
+            },
+            darkMode: 'class'
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="font-inter antialiased transition-all duration-300 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 min-h-screen">
+
+    <!-- Navigation Header -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-gray-200/20 dark:border-gray-700/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
+                        <i class="fas fa-chart-line text-white text-lg"></i>
+                    </div>
+                    <span class="text-xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">CompareMart</span>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-md mx-8">
+                    <div class="relative w-full">
+                        <input type="text" placeholder="Search products to compare..." 
+                               class="w-full pl-10 pr-4 py-2 bg-white/70 dark:bg-slate-800/70 border border-gray-200 dark:border-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent backdrop-blur-sm transition-all duration-200">
+                        <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                </div>
+
+                <!-- Theme Toggle & Menu -->
+                <div class="flex items-center space-x-4">
+                    <button id="themeToggle" class="p-2 rounded-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 transition-all duration-200">
+                        <i class="fas fa-moon dark:hidden text-gray-600"></i>
+                        <i class="fas fa-sun hidden dark:block text-yellow-400"></i>
+                    </button>
+                    <button class="md:hidden p-2 rounded-lg">
+                        <i class="fas fa-bars text-gray-600 dark:text-gray-300"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Glassmorphism -->
+    <section class="pt-24 pb-12 relative overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-l from-primary-400/20 to-secondary-400/20 rounded-full animate-float"></div>
+            <div class="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-r from-accent-cyan/20 to-accent-emerald/20 rounded-full animate-float" style="animation-delay: -3s;"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary-600 via-secondary-600 to-primary-600 bg-clip-text text-transparent animate-slide-up">
+                    Compare. Save. Shop Smarter.
+                </h1>
+                <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto animate-fade-in">
+                    Find the best deals across Amazon, Flipkart, Myntra & Meesho. Compare prices, shipping, reviews, and ratings in one premium platform.
+                </p>
+                
+                <!-- Enhanced Search Bar -->
+                <div class="max-w-2xl mx-auto mb-8">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl blur-sm opacity-50"></div>
+                        <div class="relative bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl p-6 border border-white/20 dark:border-slate-700/20">
+                            <div class="flex flex-col md:flex-row gap-4">
+                                <input type="text" placeholder="Enter product name or paste URL..." 
+                                       class="flex-1 px-4 py-3 bg-gray-50 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
+                                       data-mock="true">
+                                <button class="px-8 py-3 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-xl font-semibold hover:scale-105 transform transition-all duration-200 hover:shadow-lg">
+                                    <i class="fas fa-search mr-2"></i>Compare Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Platform Logos -->
+                <div class="flex justify-center items-center space-x-8 opacity-60">
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Supported platforms:</span>
+                    <div class="flex space-x-6">
+                        <span class="text-2xl font-bold text-orange-500">Amazon</span>
+                        <span class="text-2xl font-bold text-blue-600">Flipkart</span>
+                        <span class="text-2xl font-bold text-pink-500">Myntra</span>
+                        <span class="text-2xl font-bold text-purple-600">Meesho</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Comparison Demo Section -->
+    <section class="py-16 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                    Smart Product Comparison
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">
+                    See pricing, shipping, reviews, and ratings at a glance
+                </p>
+            </div>
+
+            <!-- Comparison Cards -->
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <!-- Product Card 1 - Amazon -->
+                <!-- @COMPONENT: ProductComparisonCard [platform: Amazon, price: ₹2,999, shipping: 2 days] -->
+                <div class="group relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-600 rounded-2xl blur-sm opacity-0 group-hover:opacity-30 transition-all duration-300"></div>
+                    <div class="relative bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl p-6 border border-white/20 dark:border-slate-700/20 hover:scale-105 transform transition-all duration-300 hover:shadow-2xl">
+                        <!-- Platform Badge -->
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-full text-sm font-medium">
+                                <i class="fab fa-amazon mr-1"></i>Amazon
+                            </span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="text-sm font-medium" data-bind="product.rating">4.5</span>
+                            </div>
+                        </div>
+
+                        <!-- Product Image -->
+                        <!-- Premium wireless noise cancelling headphones in sleek black design -->
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300" 
+                             alt="Premium wireless headphones" 
+                             class="w-full h-48 object-cover rounded-xl mb-4" data-mock-image="true">
+
+                        <!-- Product Title -->
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-3" data-bind="product.title">Sony WH-1000XM4 Wireless Headphones</h3>
+
+                        <!-- Price & Shipping (Prominent Display) -->
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-4 mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-2xl font-bold text-green-600 dark:text-green-400" data-bind="product.price">₹2,999</span>
+                                <span class="text-sm text-gray-500 line-through" data-bind="product.originalPrice">₹3,499</span>
+                            </div>
+                            <div class="flex items-center text-sm text-green-600 dark:text-green-400">
+                                <i class="fas fa-shipping-fast mr-2"></i>
+                                <span data-bind="product.shipping">Ships in 2 days</span>
+                            </div>
+                        </div>
+
+                        <!-- Reviews Section -->
+                        <div class="mb-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Customer Reviews</span>
+                                <span class="text-sm text-gray-500" data-bind="product.reviewCount">(1,234 reviews)</span>
+                            </div>
+                            <div class="flex items-center space-x-1 mb-2">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-gray-300"></i>
+                                </div>
+                                <span class="text-sm text-gray-600 dark:text-gray-400" data-bind="product.rating">4.5/5</span>
+                            </div>
+                            <p class="text-xs text-gray-600 dark:text-gray-400" data-mock="true">"Excellent sound quality and noise cancellation"</p>
+                        </div>
+
+                        <!-- Additional Features -->
+                        <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                            <div class="flex items-center">
+                                <i class="fas fa-truck text-green-500 mr-2"></i>
+                                <span data-mock="true">Free shipping</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-undo text-blue-500 mr-2"></i>
+                                <span data-mock="true">30-day return policy</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-shield-alt text-purple-500 mr-2"></i>
+                                <span data-mock="true">1-year warranty</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <button class="w-full mt-4 py-3 bg-gradient-to-r from-orange-500 to-orange-600 text-white rounded-xl font-semibold hover:scale-105 transform transition-all duration-200 hover:shadow-lg">
+                            View on Amazon
+                        </button>
+                    </div>
+                </div>
+                <!-- @END_COMPONENT: ProductComparisonCard -->
+
+                <!-- Product Card 2 - Flipkart -->
+                <!-- @COMPONENT: ProductComparisonCard [platform: Flipkart, price: ₹2,799, shipping: 3 days] -->
+                <div class="group relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-600 rounded-2xl blur-sm opacity-0 group-hover:opacity-30 transition-all duration-300"></div>
+                    <div class="relative bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl p-6 border border-white/20 dark:border-slate-700/20 hover:scale-105 transform transition-all duration-300 hover:shadow-2xl">
+                        <!-- Platform Badge -->
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full text-sm font-medium">
+                                <i class="fas fa-store mr-1"></i>Flipkart
+                            </span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="text-sm font-medium" data-bind="product.rating">4.3</span>
+                            </div>
+                        </div>
+
+                        <!-- Product Image -->
+                        <!-- Premium wireless noise cancelling headphones in sleek black design -->
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300" 
+                             alt="Premium wireless headphones" 
+                             class="w-full h-48 object-cover rounded-xl mb-4" data-mock-image="true">
+
+                        <!-- Product Title -->
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-3" data-bind="product.title">Sony WH-1000XM4 Wireless Headphones</h3>
+
+                        <!-- Price & Shipping (Prominent Display) -->
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-4 mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-2xl font-bold text-green-600 dark:text-green-400" data-bind="product.price">₹2,799</span>
+                                <span class="text-sm text-gray-500 line-through" data-bind="product.originalPrice">₹3,299</span>
+                            </div>
+                            <div class="flex items-center text-sm text-green-600 dark:text-green-400">
+                                <i class="fas fa-shipping-fast mr-2"></i>
+                                <span data-bind="product.shipping">Ships in 3 days</span>
+                            </div>
+                        </div>
+
+                        <!-- Reviews Section -->
+                        <div class="mb-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Customer Reviews</span>
+                                <span class="text-sm text-gray-500" data-bind="product.reviewCount">(987 reviews)</span>
+                            </div>
+                            <div class="flex items-center space-x-1 mb-2">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-gray-300"></i>
+                                </div>
+                                <span class="text-sm text-gray-600 dark:text-gray-400" data-bind="product.rating">4.3/5</span>
+                            </div>
+                            <p class="text-xs text-gray-600 dark:text-gray-400" data-mock="true">"Great value for money with superb build quality"</p>
+                        </div>
+
+                        <!-- Additional Features -->
+                        <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                            <div class="flex items-center">
+                                <i class="fas fa-truck text-green-500 mr-2"></i>
+                                <span data-mock="true">Free shipping above ₹500</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-undo text-blue-500 mr-2"></i>
+                                <span data-mock="true">7-day replacement</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-tags text-orange-500 mr-2"></i>
+                                <span data-mock="true">Bank offers available</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <button class="w-full mt-4 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:scale-105 transform transition-all duration-200 hover:shadow-lg">
+                            View on Flipkart
+                        </button>
+                    </div>
+                </div>
+                <!-- @END_COMPONENT: ProductComparisonCard -->
+
+                <!-- Product Card 3 - Myntra -->
+                <!-- @COMPONENT: ProductComparisonCard [platform: Myntra, price: ₹3,199, shipping: 4 days] -->
+                <div class="group relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-pink-400 to-pink-600 rounded-2xl blur-sm opacity-0 group-hover:opacity-30 transition-all duration-300"></div>
+                    <div class="relative bg-white/90 dark:bg-slate-800/90 backdrop-blur-md rounded-2xl p-6 border border-white/20 dark:border-slate-700/20 hover:scale-105 transform transition-all duration-300 hover:shadow-2xl">
+                        <!-- Platform Badge -->
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-3 py-1 bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 rounded-full text-sm font-medium">
+                                <i class="fas fa-tshirt mr-1"></i>Myntra
+                            </span>
+                            <div class="flex items-center space-x-1">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <span class="text-sm font-medium" data-bind="product.rating">4.4</span>
+                            </div>
+                        </div>
+
+                        <!-- Product Image -->
+                        <!-- Premium wireless noise cancelling headphones in sleek black design -->
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300" 
+                             alt="Premium wireless headphones" 
+                             class="w-full h-48 object-cover rounded-xl mb-4" data-mock-image="true">
+
+                        <!-- Product Title -->
+                        <h3 class="font-semibold text-gray-900 dark:text-white mb-3" data-bind="product.title">Sony WH-1000XM4 Wireless Headphones</h3>
+
+                        <!-- Price & Shipping (Prominent Display) -->
+                        <div class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-4 mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-2xl font-bold text-green-600 dark:text-green-400" data-bind="product.price">₹3,199</span>
+                                <span class="text-sm text-gray-500 line-through" data-bind="product.originalPrice">₹3,599</span>
+                            </div>
+                            <div class="flex items-center text-sm text-orange-600 dark:text-orange-400">
+                                <i class="fas fa-shipping-fast mr-2"></i>
+                                <span data-bind="product.shipping">Ships in 4 days</span>
+                            </div>
+                        </div>
+
+                        <!-- Reviews Section -->
+                        <div class="mb-4">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Customer Reviews</span>
+                                <span class="text-sm text-gray-500" data-bind="product.reviewCount">(756 reviews)</span>
+                            </div>
+                            <div class="flex items-center space-x-1 mb-2">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-gray-300"></i>
+                                </div>
+                                <span class="text-sm text-gray-600 dark:text-gray-400" data-bind="product.rating">4.4/5</span>
+                            </div>
+                            <p class="text-xs text-gray-600 dark:text-gray-400" data-mock="true">"Premium quality with fashionable design"</p>
+                        </div>
+
+                        <!-- Additional Features -->
+                        <div class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
+                            <div class="flex items-center">
+                                <i class="fas fa-truck text-green-500 mr-2"></i>
+                                <span data-mock="true">Free shipping on orders ₹799+</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-undo text-blue-500 mr-2"></i>
+                                <span data-mock="true">Easy 30-day returns</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-crown text-yellow-500 mr-2"></i>
+                                <span data-mock="true">Myntra insider benefits</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Button -->
+                        <button class="w-full mt-4 py-3 bg-gradient-to-r from-pink-500 to-pink-600 text-white rounded-xl font-semibold hover:scale-105 transform transition-all duration-200 hover:shadow-lg">
+                            View on Myntra
+                        </button>
+                    </div>
+                </div>
+                <!-- @END_COMPONENT: ProductComparisonCard -->
+            </div>
+
+            <!-- Best Deal Highlight -->
+            <div class="text-center">
+                <div class="inline-flex items-center space-x-2 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 px-6 py-3 rounded-full">
+                    <i class="fas fa-trophy text-yellow-500"></i>
+                    <span class="font-semibold text-green-700 dark:text-green-400">Best Deal: Flipkart - Save ₹200 more!</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                    Why Choose CompareMart?
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">
+                    Smart comparison features that save you time and money
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="text-center group">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transform transition-all duration-300">
+                        <i class="fas fa-chart-line text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Real-time Price Tracking</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Get instant notifications when prices drop across all platforms</p>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="text-center group">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-accent-cyan to-accent-emerald rounded-2xl flex items-center justify-center group-hover:scale-110 transform transition-all duration-300">
+                        <i class="fas fa-shipping-fast text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Shipping Comparison</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Compare delivery times and costs across all platforms</p>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="text-center group">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-accent-amber to-yellow-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transform transition-all duration-300">
+                        <i class="fas fa-star text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Review Analytics</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Smart review analysis with sentiment scoring and highlights</p>
+                </div>
+
+                <!-- Feature Card 4 -->
+                <div class="text-center group">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-accent-red to-pink-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transform transition-all duration-300">
+                        <i class="fas fa-mobile-alt text-white text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Mobile Optimized</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm">Perfect mobile experience with touch-friendly interactions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Categories Section -->
+    <section class="py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+                    Popular Categories
+                </h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">
+                    Explore trending product categories
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <!-- @MAP: categories.map(category => ( -->
+                <div class="group cursor-pointer">
+                    <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center hover:scale-105 transform transition-all duration-300 hover:shadow-xl border border-white/20 dark:border-slate-700/20">
+                        <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-mobile-alt text-white"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white text-sm" data-mock="true">Electronics</h3>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer">
+                    <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center hover:scale-105 transform transition-all duration-300 hover:shadow-xl border border-white/20 dark:border-slate-700/20">
+                        <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-tshirt text-white"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white text-sm" data-mock="true">Fashion</h3>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer">
+                    <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center hover:scale-105 transform transition-all duration-300 hover:shadow-xl border border-white/20 dark:border-slate-700/20">
+                        <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-home text-white"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white text-sm" data-mock="true">Home & Garden</h3>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer">
+                    <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center hover:scale-105 transform transition-all duration-300 hover:shadow-xl border border-white/20 dark:border-slate-700/20">
+                        <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-book text-white"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white text-sm" data-mock="true">Books</h3>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer">
+                    <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center hover:scale-105 transform transition-all duration-300 hover:shadow-xl border border-white/20 dark:border-slate-700/20">
+                        <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-r from-purple-500 to-indigo-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-dumbbell text-white"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white text-sm" data-mock="true">Sports</h3>
+                    </div>
+                </div>
+
+                <div class="group cursor-pointer">
+                    <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 text-center hover:scale-105 transform transition-all duration-300 hover:shadow-xl border border-white/20 dark:border-slate-700/20">
+                        <div class="w-12 h-12 mx-auto mb-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-xl flex items-center justify-center">
+                            <i class="fas fa-gamepad text-white"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white text-sm" data-mock="true">Gaming</h3>
+                    </div>
+                </div>
+                <!-- @END_MAP )) -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Call-to-Action Section -->
+    <section class="py-16 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary-600 to-secondary-600 opacity-10"></div>
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8 relative">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+                Ready to Start Saving?
+            </h2>
+            <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                Join thousands of smart shoppers who save money with CompareMart
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="px-8 py-4 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-xl font-semibold hover:scale-105 transform transition-all duration-200 hover:shadow-xl">
+                    <i class="fas fa-search mr-2"></i>Start Comparing Now
+                </button>
+                <button class="px-8 py-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm text-gray-700 dark:text-gray-200 rounded-xl font-semibold hover:scale-105 transform transition-all duration-200 border border-gray-200 dark:border-slate-700">
+                    <i class="fas fa-download mr-2"></i>Download App
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-t border-gray-200/20 dark:border-gray-700/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Company Info -->
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-chart-line text-white text-sm"></i>
+                        </div>
+                        <span class="text-lg font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">CompareMart</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                        The ultimate platform for smart e-commerce price comparison across India's top shopping sites.
+                    </p>
+                    <div class="flex space-x-4">
+                        <i class="fab fa-twitter text-gray-400 hover:text-primary-500 cursor-pointer transition-colors"></i>
+                        <i class="fab fa-facebook text-gray-400 hover:text-primary-500 cursor-pointer transition-colors"></i>
+                        <i class="fab fa-instagram text-gray-400 hover:text-primary-500 cursor-pointer transition-colors"></i>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">How it Works</a></li>
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">Price Alerts</a></li>
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">Mobile App</a></li>
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">Browser Extension</a></li>
+                    </ul>
+                </div>
+
+                <!-- Categories -->
+                <div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Categories</h3>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">Electronics</a></li>
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">Fashion</a></li>
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">Home & Garden</a></li>
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">Books & Media</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h3 class="font-semibold text-gray-900 dark:text-white mb-4">Support</h3>
+                    <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">Help Center</a></li>
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-primary-500 transition-colors" data-mock="true">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-200 dark:border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-sm text-gray-600 dark:text-gray-300">
+                    © 2024 CompareMart. All rights reserved. | Making smart shopping decisions easier.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button class="w-14 h-14 bg-gradient-to-r from-primary-500 to-secondary-500 text-white rounded-full shadow-lg hover:scale-110 transform transition-all duration-300 hover:shadow-xl animate-float">
+            <i class="fas fa-comment text-lg"></i>
+        </button>
+    </div>
+
+    <!-- JavaScript for Theme Toggle and Interactions -->
+    <script>
+        (function() {
+            // Theme Toggle Functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const htmlElement = document.documentElement;
+            
+            // Check for saved theme preference
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            htmlElement.classList.toggle('dark', currentTheme === 'dark');
+            
+            themeToggle.addEventListener('click', function() {
+                const isDark = htmlElement.classList.contains('dark');
+                htmlElement.classList.toggle('dark', !isDark);
+                localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+                
+                // Add transition effect
+                document.body.style.transition = 'background-color 0.3s ease';
+                setTimeout(() => {
+                    document.body.style.transition = '';
+                }, 300);
+            });
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements for scroll animations
+            document.querySelectorAll('.group, .animate-slide-up, .animate-fade-in').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+
+            // Mobile menu toggle (placeholder)
+            const mobileMenuButton = document.querySelector('button:has(.fa-bars)');
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function() {
+                    // TODO: Implement mobile menu functionality
+                    console.log('Mobile menu clicked');
+                });
+            }
+
+            // Search functionality placeholders
+            const searchInputs = document.querySelectorAll('input[type="text"]');
+            searchInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.classList.add('ring-2', 'ring-primary-500');
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.classList.remove('ring-2', 'ring-primary-500');
+                });
+
+                input.addEventListener('input', function() {
+                    // TODO: Implement search suggestions
+                    console.log('Search input:', this.value);
+                });
+            });
+
+            // Button click effects
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Add ripple effect
+                    const ripple = document.createElement('span');
+                    ripple.classList.add('absolute', 'bg-white', 'rounded-full', 'opacity-50');
+                    ripple.style.width = ripple.style.height = '20px';
+                    ripple.style.left = (e.clientX - e.target.offsetLeft - 10) + 'px';
+                    ripple.style.top = (e.clientY - e.target.offsetTop - 10) + 'px';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Performance optimization: Lazy load images
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.style.filter = 'blur(0)';
+                        img.style.transition = 'filter 0.3s ease';
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img').forEach(img => {
+                img.style.filter = 'blur(2px)';
+                imageObserver.observe(img);
+            });
+
+        })();
+    </script>
+
+    <!-- Add ripple animation styles -->
+    <style>
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        /* Smooth transitions for all interactive elements */
+        * {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, #6366f1, #8b5cf6);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to bottom, #5b5bd6, #7c3aed);
+        }
+        
+        /* Performance optimizations */
+        .transform {
+            will-change: transform;
+        }
+        
+        .animate-float {
+            will-change: transform;
+        }
+    </style>
+
+</body>
+</html>

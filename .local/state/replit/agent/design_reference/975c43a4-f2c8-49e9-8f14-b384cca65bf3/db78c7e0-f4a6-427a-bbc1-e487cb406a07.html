@@ -1,0 +1,484 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopCompare - Smart Price Comparison Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-inter bg-gray-50 dark:bg-slate-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+<!-- @COMPONENT: Header [search, mode toggle, navigation] -->
+<header class="bg-white dark:bg-slate-800 shadow-sm border-b border-gray-200 dark:border-slate-700 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold text-primary-600 dark:text-primary-400">ShopCompare</h1>
+            </div>
+            
+            <!-- Search Bar (Mobile Hidden) -->
+            <div class="hidden md:flex flex-1 max-w-2xl mx-8">
+                <div class="relative w-full">
+                    <input type="text" placeholder="Search products across Amazon, Flipkart, Myntra, Meesho..." 
+                           class="w-full px-4 py-2 pl-10 pr-4 text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+            </div>
+            
+            <!-- Dark Mode Toggle -->
+            <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors">
+                <i class="fas fa-moon dark:hidden"></i>
+                <i class="fas fa-sun hidden dark:block"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Search -->
+        <div class="md:hidden pb-4">
+            <div class="relative">
+                <input type="text" placeholder="Search products..." 
+                       class="w-full px-4 py-2 pl-10 pr-4 text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-slate-700 border border-gray-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent" />
+                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- @END_COMPONENT: Header -->
+
+<!-- @COMPONENT: FilterBar [category filters, sort options] -->
+<div class="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-wrap gap-2">
+            <span class="text-sm font-medium text-gray-700 dark:text-gray-300 mr-4 flex items-center">Filters:</span>
+            <button class="px-3 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300 rounded-full">Electronics</button>
+            <button class="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600">Fashion</button>
+            <button class="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600">Home & Kitchen</button>
+            <button class="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded-full hover:bg-gray-200 dark:hover:bg-slate-600">Price: Low to High</button>
+        </div>
+    </div>
+</div>
+<!-- @END_COMPONENT: FilterBar -->
+
+<!-- @COMPONENT: MainContent [comparison results] -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <!-- Search Results Header -->
+    <div class="mb-6">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">Comparing: "iPhone 15 Pro Max"</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-400">Found 4 results across platforms • Updated 2 minutes ago</p>
+    </div>
+
+    <!-- @MAP: products.map(product => ( -->
+    <!-- Comparison Grid -->
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
+        
+        <!-- Amazon Product Card -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden hover:shadow-md transition-shadow">
+            <!-- Platform Badge -->
+            <div class="bg-orange-500 text-white px-3 py-1 text-xs font-medium flex items-center">
+                <i class="fab fa-amazon mr-2"></i>
+                Amazon
+            </div>
+            
+            <!-- Product Image -->
+            <!-- High-quality iPhone 15 Pro Max product shot on white background -->
+            <div class="p-4">
+                <img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                     alt="iPhone 15 Pro Max" 
+                     class="w-full h-48 object-contain mb-4" data-mock="true" />
+                
+                <!-- PRICE - Primary Visual Element -->
+                <div class="mb-3">
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-2xl font-bold text-green-600 dark:text-green-400" data-bind="product.price">₹1,49,900</span>
+                        <span class="text-lg text-gray-500 dark:text-gray-400 line-through" data-bind="product.originalPrice">₹1,59,900</span>
+                        <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded text-xs font-medium">6% OFF</span>
+                    </div>
+                </div>
+                
+                <!-- SHIPPING - Secondary Visual Element -->
+                <div class="mb-4 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+                    <div class="flex items-center gap-2 mb-1">
+                        <i class="fas fa-shipping-fast text-blue-600 dark:text-blue-400"></i>
+                        <span class="font-medium text-blue-800 dark:text-blue-200">Free Delivery</span>
+                    </div>
+                    <p class="text-sm text-blue-700 dark:text-blue-300" data-bind="product.deliveryDate">Tomorrow, 24 Dec</p>
+                    <p class="text-xs text-blue-600 dark:text-blue-400">Prime eligible</p>
+                </div>
+                
+                <!-- REVIEWS & RATINGS - Tertiary Visual Element -->
+                <div class="mb-4 p-3 bg-gray-50 dark:bg-slate-700 rounded-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="flex items-center">
+                            <span class="text-lg font-semibold text-yellow-600 dark:text-yellow-400" data-bind="product.rating">4.3</span>
+                            <div class="flex ml-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star-half-alt text-yellow-400 text-sm"></i>
+                            </div>
+                        </div>
+                        <span class="text-sm text-gray-600 dark:text-gray-400" data-bind="product.reviewCount">(12,847 reviews)</span>
+                    </div>
+                    <p class="text-sm text-gray-700 dark:text-gray-300" data-mock="true">"Excellent camera quality and battery life. Worth the upgrade from iPhone 14."</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">- Verified Purchase</p>
+                </div>
+                
+                <!-- FEATURES - Quaternary Visual Element -->
+                <div class="space-y-2">
+                    <h4 class="font-medium text-gray-900 dark:text-gray-100 text-sm">Key Features:</h4>
+                    <div class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">256GB Storage</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">Natural Titanium</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">Pro Camera System</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Button -->
+                <button class="w-full mt-4 bg-orange-500 hover:bg-orange-600 text-white font-medium py-2 px-4 rounded-lg transition-colors" data-event="click:redirectToAmazon">
+                    View on Amazon
+                </button>
+            </div>
+        </div>
+
+        <!-- Flipkart Product Card -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden hover:shadow-md transition-shadow">
+            <!-- Platform Badge -->
+            <div class="bg-blue-600 text-white px-3 py-1 text-xs font-medium flex items-center">
+                <i class="fas fa-shopping-cart mr-2"></i>
+                Flipkart
+            </div>
+            
+            <!-- Product Image -->
+            <!-- iPhone 15 Pro Max displayed at an angle showing design details -->
+            <div class="p-4">
+                <img src="https://pixabay.com/get/gac2f9a2a58c31223776a17c157eb4e95efdc1e14c2ad8228c7d25f44366bc5365937c7df2cf931f42a450e992217f838962aaf9f46007495c529e338021ed0c6_1280.jpg" 
+                     alt="iPhone 15 Pro Max" 
+                     class="w-full h-48 object-contain mb-4" data-mock="true" />
+                
+                <!-- PRICE - Primary Visual Element -->
+                <div class="mb-3">
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-2xl font-bold text-green-600 dark:text-green-400" data-bind="product.price">₹1,47,999</span>
+                        <span class="text-lg text-gray-500 dark:text-gray-400 line-through" data-bind="product.originalPrice">₹1,59,900</span>
+                        <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded text-xs font-medium">7% OFF</span>
+                    </div>
+                </div>
+                
+                <!-- SHIPPING - Secondary Visual Element -->
+                <div class="mb-4 p-3 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
+                    <div class="flex items-center gap-2 mb-1">
+                        <i class="fas fa-truck text-purple-600 dark:text-purple-400"></i>
+                        <span class="font-medium text-purple-800 dark:text-purple-200">Free Delivery</span>
+                    </div>
+                    <p class="text-sm text-purple-700 dark:text-purple-300" data-bind="product.deliveryDate">25 Dec, Monday</p>
+                    <p class="text-xs text-purple-600 dark:text-purple-400">Plus member benefits</p>
+                </div>
+                
+                <!-- REVIEWS & RATINGS - Tertiary Visual Element -->
+                <div class="mb-4 p-3 bg-gray-50 dark:bg-slate-700 rounded-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="flex items-center">
+                            <span class="text-lg font-semibold text-yellow-600 dark:text-yellow-400" data-bind="product.rating">4.4</span>
+                            <div class="flex ml-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star-half-alt text-yellow-400 text-sm"></i>
+                            </div>
+                        </div>
+                        <span class="text-sm text-gray-600 dark:text-gray-400" data-bind="product.reviewCount">(8,965 reviews)</span>
+                    </div>
+                    <p class="text-sm text-gray-700 dark:text-gray-300" data-mock="true">"Amazing build quality and performance. Camera is outstanding for photography."</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">- Certified Buyer</p>
+                </div>
+                
+                <!-- FEATURES - Quaternary Visual Element -->
+                <div class="space-y-2">
+                    <h4 class="font-medium text-gray-900 dark:text-gray-100 text-sm">Key Features:</h4>
+                    <div class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">256GB Storage</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">Natural Titanium</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">1 Year Warranty</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Button -->
+                <button class="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors" data-event="click:redirectToFlipkart">
+                    View on Flipkart
+                </button>
+            </div>
+        </div>
+
+        <!-- Myntra Product Card (Fashion-focused alternative) -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden hover:shadow-md transition-shadow">
+            <!-- Platform Badge -->
+            <div class="bg-pink-600 text-white px-3 py-1 text-xs font-medium flex items-center">
+                <i class="fas fa-heart mr-2"></i>
+                Myntra
+            </div>
+            
+            <!-- Product Image -->
+            <!-- Stylish iPhone case and accessories collection for fashion-conscious users -->
+            <div class="p-4">
+                <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                     alt="iPhone 15 Pro Max with Premium Case Bundle" 
+                     class="w-full h-48 object-contain mb-4" data-mock="true" />
+                
+                <!-- PRICE - Primary Visual Element -->
+                <div class="mb-3">
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-2xl font-bold text-green-600 dark:text-green-400" data-bind="product.price">₹1,52,500</span>
+                        <span class="text-lg text-gray-500 dark:text-gray-400 line-through" data-bind="product.originalPrice">₹1,62,000</span>
+                        <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded text-xs font-medium">6% OFF</span>
+                    </div>
+                    <p class="text-xs text-gray-600 dark:text-gray-400 mt-1">Bundle includes premium case & screen protector</p>
+                </div>
+                
+                <!-- SHIPPING - Secondary Visual Element -->
+                <div class="mb-4 p-3 bg-pink-50 dark:bg-pink-900/30 rounded-lg">
+                    <div class="flex items-center gap-2 mb-1">
+                        <i class="fas fa-shipping-fast text-pink-600 dark:text-pink-400"></i>
+                        <span class="font-medium text-pink-800 dark:text-pink-200">Express Delivery</span>
+                    </div>
+                    <p class="text-sm text-pink-700 dark:text-pink-300" data-bind="product.deliveryDate">26 Dec, Tuesday</p>
+                    <p class="text-xs text-pink-600 dark:text-pink-400">Style assured packaging</p>
+                </div>
+                
+                <!-- REVIEWS & RATINGS - Tertiary Visual Element -->
+                <div class="mb-4 p-3 bg-gray-50 dark:bg-slate-700 rounded-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="flex items-center">
+                            <span class="text-lg font-semibold text-yellow-600 dark:text-yellow-400" data-bind="product.rating">4.2</span>
+                            <div class="flex ml-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="far fa-star text-yellow-400 text-sm"></i>
+                            </div>
+                        </div>
+                        <span class="text-sm text-gray-600 dark:text-gray-400" data-bind="product.reviewCount">(3,247 reviews)</span>
+                    </div>
+                    <p class="text-sm text-gray-700 dark:text-gray-300" data-mock="true">"Perfect combo! Phone is amazing and the case quality is premium. Great for style."</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">- Fashion Enthusiast</p>
+                </div>
+                
+                <!-- FEATURES - Quaternary Visual Element -->
+                <div class="space-y-2">
+                    <h4 class="font-medium text-gray-900 dark:text-gray-100 text-sm">Bundle Includes:</h4>
+                    <div class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">iPhone 15 Pro Max 256GB</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">Premium Leather Case</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">Tempered Glass Protector</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Button -->
+                <button class="w-full mt-4 bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-lg transition-colors" data-event="click:redirectToMyntra">
+                    View on Myntra
+                </button>
+            </div>
+        </div>
+
+        <!-- Meesho Product Card -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 overflow-hidden hover:shadow-md transition-shadow">
+            <!-- Platform Badge -->
+            <div class="bg-purple-600 text-white px-3 py-1 text-xs font-medium flex items-center">
+                <i class="fas fa-store mr-2"></i>
+                Meesho
+            </div>
+            
+            <!-- Product Image -->
+            <!-- iPhone 15 Pro Max replica or similar device for budget-conscious shoppers -->
+            <div class="p-4">
+                <img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                     alt="iPhone 15 Pro Max Compatible Case & Accessories" 
+                     class="w-full h-48 object-contain mb-4" data-mock="true" />
+                
+                <!-- PRICE - Primary Visual Element -->
+                <div class="mb-3">
+                    <div class="flex items-baseline gap-2">
+                        <span class="text-2xl font-bold text-green-600 dark:text-green-400" data-bind="product.price">₹1,44,999</span>
+                        <span class="text-lg text-gray-500 dark:text-gray-400 line-through" data-bind="product.originalPrice">₹1,59,900</span>
+                        <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded text-xs font-medium">9% OFF</span>
+                    </div>
+                    <p class="text-xs text-purple-600 dark:text-purple-400 mt-1">Lowest price guarantee</p>
+                </div>
+                
+                <!-- SHIPPING - Secondary Visual Element -->
+                <div class="mb-4 p-3 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
+                    <div class="flex items-center gap-2 mb-1">
+                        <i class="fas fa-truck text-purple-600 dark:text-purple-400"></i>
+                        <span class="font-medium text-purple-800 dark:text-purple-200">Free Delivery</span>
+                    </div>
+                    <p class="text-sm text-purple-700 dark:text-purple-300" data-bind="product.deliveryDate">27 Dec, Wednesday</p>
+                    <p class="text-xs text-purple-600 dark:text-purple-400">Cash on delivery available</p>
+                </div>
+                
+                <!-- REVIEWS & RATINGS - Tertiary Visual Element -->
+                <div class="mb-4 p-3 bg-gray-50 dark:bg-slate-700 rounded-lg">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="flex items-center">
+                            <span class="text-lg font-semibold text-yellow-600 dark:text-yellow-400" data-bind="product.rating">4.0</span>
+                            <div class="flex ml-1">
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                <i class="far fa-star text-yellow-400 text-sm"></i>
+                            </div>
+                        </div>
+                        <span class="text-sm text-gray-600 dark:text-gray-400" data-bind="product.reviewCount">(1,523 reviews)</span>
+                    </div>
+                    <p class="text-sm text-gray-700 dark:text-gray-300" data-mock="true">"Great value for money. Genuine product received. Seller is trustworthy."</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">- Verified Buyer</p>
+                </div>
+                
+                <!-- FEATURES - Quaternary Visual Element -->
+                <div class="space-y-2">
+                    <h4 class="font-medium text-gray-900 dark:text-gray-100 text-sm">Key Features:</h4>
+                    <div class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">256GB Storage</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">Original Box & Warranty</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i class="fas fa-circle text-xs text-gray-400"></i>
+                            <span data-mock="true">7-day return policy</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Button -->
+                <button class="w-full mt-4 bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition-colors" data-event="click:redirectToMeesho">
+                    View on Meesho
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- @END_MAP )) -->
+
+    <!-- Price Comparison Summary -->
+    <div class="mt-8 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">Quick Price Comparison</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="text-center p-3 bg-orange-50 dark:bg-orange-900/30 rounded-lg">
+                <p class="text-xs font-medium text-orange-800 dark:text-orange-200">Amazon</p>
+                <p class="text-lg font-bold text-orange-600 dark:text-orange-400">₹1,49,900</p>
+                <p class="text-xs text-orange-700 dark:text-orange-300">Tomorrow</p>
+            </div>
+            <div class="text-center p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+                <p class="text-xs font-medium text-blue-800 dark:text-blue-200">Flipkart</p>
+                <p class="text-lg font-bold text-blue-600 dark:text-blue-400">₹1,47,999</p>
+                <p class="text-xs text-blue-700 dark:text-blue-300">25 Dec</p>
+            </div>
+            <div class="text-center p-3 bg-pink-50 dark:bg-pink-900/30 rounded-lg">
+                <p class="text-xs font-medium text-pink-800 dark:text-pink-200">Myntra</p>
+                <p class="text-lg font-bold text-pink-600 dark:text-pink-400">₹1,52,500</p>
+                <p class="text-xs text-pink-700 dark:text-pink-300">26 Dec</p>
+            </div>
+            <div class="text-center p-3 bg-purple-50 dark:bg-purple-900/30 rounded-lg border-2 border-green-400 dark:border-green-500">
+                <p class="text-xs font-medium text-purple-800 dark:text-purple-200">Meesho</p>
+                <p class="text-lg font-bold text-green-600 dark:text-green-400">₹1,44,999</p>
+                <p class="text-xs text-purple-700 dark:text-purple-300">27 Dec</p>
+                <span class="inline-block mt-1 text-xs bg-green-500 text-white px-2 py-1 rounded">Best Price</span>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- @END_COMPONENT: MainContent -->
+
+<!-- @COMPONENT: FloatingActions [favorites, share, compare toggle] -->
+<div class="fixed bottom-6 right-6 z-50">
+    <div class="flex flex-col gap-3">
+        <button class="w-12 h-12 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg flex items-center justify-center transition-colors" title="Add to Favorites">
+            <i class="fas fa-heart"></i>
+        </button>
+        <button class="w-12 h-12 bg-gray-600 hover:bg-gray-700 text-white rounded-full shadow-lg flex items-center justify-center transition-colors" title="Share Comparison">
+            <i class="fas fa-share-alt"></i>
+        </button>
+    </div>
+</div>
+<!-- @END_COMPONENT: FloatingActions -->
+
+<script>
+    (function() {
+        // Dark mode toggle functionality
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to 'light'
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.classList.toggle('dark', currentTheme === 'dark');
+        
+        themeToggle.addEventListener('click', function() {
+            const isDark = html.classList.contains('dark');
+            html.classList.toggle('dark', !isDark);
+            localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+        });
+
+        // TODO: Implement search functionality with API integration
+        // TODO: Implement real-time price comparison updates
+        // TODO: Implement user favorites and comparison history
+        // TODO: Add advanced filtering and sorting options
+        // TODO: Implement price alerts and notifications
+        // TODO: Add social sharing with custom graphics
+    })();
+</script>
+
+</body>
+</html>
